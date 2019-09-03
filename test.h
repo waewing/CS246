@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+using namespace std;
 
 class Shape
 {
@@ -11,7 +12,7 @@ class Shape
 
     public:
 
-        Shape(): sides(NULL), sidesCount(0) {};
+        Shape(): sides(NULL), sidesCount(0) {}; // default constructor
         Shape(const Shape& obj) // copy constructor  
         {  
             if(obj.sides == NULL)
@@ -55,14 +56,14 @@ class Shape
             delete[]sides;
         }
 
-        Shape(int size): sidesCount(size) // overloaded constructor
+        Shape(int sides): sidesCount(sides) // overloaded constructor
         {
             if(sidesCount <= 0)
             {
                 sidesCount = 3;
             }
 
-            sides = new double[sidesCount];
+            this-> sides = new double[sidesCount];
             for(int = 0; i < sidesCount; i+=1)
             {
                 sides[i] = 1.0;
@@ -79,7 +80,7 @@ class Shape
             return sidesCount;  // sidesCount is read-only cannot be modified by setters
         }
 
-        double GetSide(int index) const
+        const double& GetSide(int index) const
         {
             if(index>= 0 && index < sidesCount)
             {
@@ -88,10 +89,10 @@ class Shape
             throw "Out of Bounds";
         }
 
-        double GetSide(int index) 
+        double& GetSide(int index) 
         {
             
-            if(index> = 0 && index < sidesCount) 
+            if(index >= 0 && index < sidesCount) 
             {
                 return sides[index];
             }
@@ -134,6 +135,28 @@ class Shape
 
         virtual double Area() const = 0;
         virtual double Area() = 0;
+
+        string ToString() const
+        {
+            stringstream out;
+            out << "[ ";
+            for(int i = 0; i < sidesCount; i += 1)
+            {
+                out << sides[i];
+                if(i+1 != sidesCount)
+                {
+                    out < ",";
+                }
+            }
+            out << "]";
+            return out.str();
+        }
+
+        friend ostream& operator<<(ostream& out, const Shape& obj)
+        {
+            out << obj.ToString();
+            return out;
+        }
 
 };
 
@@ -212,6 +235,12 @@ class Rectangle: public Shape //Inheritance
             return (GetSide(0)*GetSide(1));
         }
 
+    friend ostream& operator<<(ostream& out, const Rectangle& obj)
+    {
+        out << obj.ToString();
+        return out;
+    }
+
     private:
 
         using Shape::GetSide;
@@ -220,7 +249,6 @@ class Rectangle: public Shape //Inheritance
         using Shape::GetSide const;
 
 };
-
 
 #endif
 
