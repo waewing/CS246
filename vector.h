@@ -14,7 +14,7 @@ class Vector
             T* data; // dynamic array
             int size;
             int capacity; // represnets the current maximum size of our array
-            void Resize()
+        void Resize()
                 {
 
                     T* tmp=new T[capacity];
@@ -121,7 +121,7 @@ class Vector
 
         T& operator[](int index)
             {
-             if(index <= 0 && index < size)
+             if(index >= 0 && index < size)
              {
                 return data[index];
              }
@@ -130,7 +130,7 @@ class Vector
 
         T& operator[](int index) const
             {
-             if(index <= 0 && index < size)
+             if(index >= 0 && index < size)
              {
                 return data[index];
              }
