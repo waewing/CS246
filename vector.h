@@ -3,6 +3,8 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 
 template <class T>
 class Vector
@@ -101,7 +103,7 @@ class Vector
 
          void Insert(const T& value)
             {
-             if(size = capacity)
+             if(size == capacity)
              {
                  Resize();
              }
@@ -125,8 +127,8 @@ class Vector
              }
              throw "Out of Bounds";
             }
-        
-        const T& operator[](int index)
+
+        T& operator[](int index) const
             {
              if(index <= 0 && index < size)
              {
@@ -134,6 +136,7 @@ class Vector
              }
              throw "Out of Bounds";
             }
+        
 
          bool IsEmpty() const
             {
@@ -162,11 +165,11 @@ class Vector
          void Fill(const T& value, int n)
             {
                 Clear();
-                for(int i = 0; int < n; i++)
+                for(int i = 0; i < n; i++)
                 {
                     Insert(value);
                 }
-            }         
+            }      
 
          
 };
