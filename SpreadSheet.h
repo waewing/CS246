@@ -15,7 +15,7 @@ class SpreadSheet{
     SpreadSheet(const SpreadSheet& obj){ // .1 total .5
       columns = obj.columns;
       rows = obj.rows;
-      grid = new double [columns,rows];
+      grid = new double [columns][rows];
     }
   
   SpreadSheet operator=(const SpreadSheet rhs){ //.1 total .6
@@ -23,7 +23,7 @@ class SpreadSheet{
       {
         columns = rhs.columns;
         rows = rhs.rows;
-        grid = new double [columns, rows];
+        grid = new double [columns][rows];
       }
       return *this;
     }
@@ -39,7 +39,7 @@ class SpreadSheet{
     }
     
     const bool IsCoordinate(string coordinate){ //.2 total 1.1
-      if(coordinate <= 26 && rows <= 99)
+      if(columns <= 26 && rows <= 99)
       {
         return true;
       }
@@ -48,8 +48,33 @@ class SpreadSheet{
         return false;
       }
     }
-    
+  
+    const int GetIndex(string coordinate){ //.2 total 1.3
+      if(IsCoordinate(coordinate) == true)
+         {
+           return coordinate;
+         }
+         else
+         {
+           throw "Invalid Coordinate";
+         }
+     }
+  
+    const int GetCell(string coordinate){ //.2 total 1.5
+      if(IsCoordinate(coordinate) == true)
+         {
+           return coordinate;
+         }
+         else
+         {
+           throw "Invalid Coordinate";
+         }
+     }
+         
+         
 };
+
+
 
 int main() {
   
