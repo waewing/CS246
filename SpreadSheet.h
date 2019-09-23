@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <locale>
 using namespace std;
 
 class SpreadSheet{
@@ -39,7 +40,7 @@ class SpreadSheet{
     }
     
     const bool IsCoordinate(string coordinate){ //.2 total 1.1
-      if(columns <= 26 && rows <= 99)
+      if(islanum(columns) && isalnum(rows))
       {
         return true;
       }
