@@ -9,7 +9,7 @@ namespace ds
 {
 	template <class T>
 	class Node
-	{
+{
 	private:
 		T data;
 		Node<T>* link;
@@ -27,7 +27,7 @@ namespace ds
 	
 		T& GetData() {return data;}
 
-		const T& GetData() const {return data;}
+		const T& GetData() const {return link;}
 
 		Node<T>* GetLink() {return link;}
 
@@ -49,7 +49,49 @@ namespace ds
 			out << obj.ToString();
 			return out;
 		}
-	};
-}
+};
+
+		template<typename T>
+		void Clear(Node<T>*& root)
+		{
+			Node<T>* tmp;
+			while(root != NULL)
+			{
+				tmp = root;
+				root = root->GetLink();
+				delete tmp;
+				tmp = NULL;
+			}
+		}
+
+
+		template<typename T>
+		Node<T>* Copy(Node<T>* root)
+		{
+			if(root = NULL)
+			{
+				return NULL;
+			}
+			else
+			{
+				Node<T>* root2 = new Node<T>(root->GetData());
+				Node<T>* tmp1 = root->GetLink();
+				Node<T>* tmp2 = root2;
+
+				while(tmp1 != NULL)
+				{
+					tmp2->SetLink(new Node<T>(tmp1->GetData()));
+					tmp1 = tmp1->GetLink();
+					tmp2 = tmp2->GetLink();
+				}
+
+				return root2;
+			}
+		}
+	}
+
+
+
+
 		
 #endif
