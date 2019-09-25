@@ -107,11 +107,19 @@ class SpreadSheet{
 			out << obj.ToString();
 			return out;
 		}
-
-         
+	
+	const double GetCell(string coordinate) // .2 total 2.2
+	{
+		if(IsCoordinate(coordinate) == true)
+		{
+			return grid[coordinate];
+		}
+		else
+		{
+			throw "Invalid Coordinate";		
+		}
+		
 };
-
-
 
 int main() {
   
