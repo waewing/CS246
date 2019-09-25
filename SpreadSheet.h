@@ -11,7 +11,18 @@ class SpreadSheet{
     int rows; // .1 total .3
 
   public:
-    SpreadSheet(){ columns = 10; rows = 15; *grid = 0.0;}; // .1 total .4
+    SpreadSheet()// .1 total .4
+      {
+      columns = 10; 
+      rows = 15; 
+      *grid = new int[columns*rows]; 
+        for(int i = 0; i < columns; i++)
+        {
+          for(int j = 0; j < rows; j++)
+          {
+           *(grid + i*rows+j) = 0;
+          }
+        } 
 
     SpreadSheet(const SpreadSheet& obj){ // .1 total .5
       columns = obj.columns;
