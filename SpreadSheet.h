@@ -83,6 +83,31 @@ class SpreadSheet{
          }
      }
          
+      
+   std::string ToString() const
+    {
+			std::stringstream out;
+
+			out << "[";
+
+			for(int i = 0;i < columns;i++)
+			  {
+          for(int j = 0;j < rows;j++)
+          {
+            out << *(grid + i*rows+j) <<"\n";
+          }
+			  }
+
+			out << "]";
+			return out.str();
+		}
+      
+      friend std::ostream& operator<<(std::ostream& out,const SpreadSheet& obj)
+		{
+			out << obj.ToString();
+			return out;
+		}
+
          
 };
 
