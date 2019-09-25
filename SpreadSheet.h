@@ -15,7 +15,7 @@ class SpreadSheet{
       {
       columns = 10; 
       rows = 15; 
-      *grid = new int[columns*rows]; 
+      *grid = new double [columns*rows]; 
         for(int i = 0; i < columns; i++)
         {
           for(int j = 0; j < rows; j++)
@@ -27,7 +27,7 @@ class SpreadSheet{
     SpreadSheet(const SpreadSheet& obj){ // .1 total .5
       columns = obj.columns;
       rows = obj.rows;
-      grid = new double [columns][rows];
+      grid = new double [columns*rows];
     }
   
   SpreadSheet operator=(const SpreadSheet rhs){ //.1 total .6
@@ -35,7 +35,7 @@ class SpreadSheet{
       {
         columns = rhs.columns;
         rows = rhs.rows;
-        grid = new double [columns][rows];
+        grid = new double [columns*rows];
       }
       return *this;
     }
