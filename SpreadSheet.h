@@ -1,8 +1,10 @@
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <locale>
 using namespace std;
 
+template <class T>
 class SpreadSheet{
 
   private:
@@ -15,7 +17,7 @@ class SpreadSheet{
       {
       columns = 10; 
       rows = 15; 
-      *grid = new double [columns*rows]; 
+      grid = new double [columns*rows]; 
         for(int i = 0; i < columns; i++)
         {
           for(int j = 0; j < rows; j++)
@@ -23,6 +25,7 @@ class SpreadSheet{
            *(grid + i*rows+j) = 0.0;
           }
         } 
+      }
 
     SpreadSheet(const SpreadSheet& obj){ // .1 total .5
       columns = obj.columns;
@@ -51,7 +54,7 @@ class SpreadSheet{
     }
     
     const bool IsCoordinate(string coordinate){ //.2 total 1.1
-      if(islanum(columns) && isalnum(rows))
+      if(isalpha(columns) && isdigit(rows))
       {
         return true;
       }
@@ -64,7 +67,7 @@ class SpreadSheet{
     const int GetIndex(string coordinate){ //.2 total 1.3
       if(IsCoordinate(coordinate) == true)
          {
-           return coordinate;
+           return grid[columns*rows] = coordinate;
          }
          else
          {
@@ -101,18 +104,19 @@ class SpreadSheet{
 	{
 		if(IsCoordinate(coordinate) == true)
 		{
-			return grid[coordinate];
+			return grid[columns*rows] = coordinate;
 		}
 		else
 		{
 			throw "Invalid Coordinate";		
 		}
+  }
 		
 	void SetCell(string coordinate, double value) //.2 total 2.2
 	{
 		if(IsCoordinate(coordinate) == true)
 		{
-			grid[coordinate] = value;
+			return grid[columns*rows] = coordinate;
 		}
 		else
 		{
@@ -120,11 +124,11 @@ class SpreadSheet{
 		}	
 	}
 		
-	operator[](string coordinate) //.2 total 2.4
+	double operator[](string coordinate) //.2 total 2.4
 	{
 		if(IsCoordinate(coordinate) == true)
 		{
-			return grid[coordinate];
+			return grid[columns*rows] = coordinate;
 		}
 		else
 		{
@@ -132,20 +136,29 @@ class SpreadSheet{
 		}	
 	}
 		
-	const double& operator[](string coordinate) //.2 total 2.6
+  double& operator[](string coordinate) const //.2 total 2.6
 	{
 		if(IsCoordinate(coordinate) == true)
 		{
-			return grid[coordinate];
+			return grid[columns*rows] = coordinate;
 		}
 		else
 		{
 			throw "Invalid Coordinate";		
 		}	
+	}
+		
+	bool InsertColumnBefore(char newc) //.2 total 3.0
+	{
+		if(isalpha(newc) == true)
+		{
+			
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 		
 };
-
-int main() {
-  
-}
