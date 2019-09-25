@@ -71,21 +71,10 @@ class SpreadSheet{
            throw "Invalid Coordinate";
          }
      }
-  
-    const int GetCell(string coordinate){ //.2 total 1.5
-      if(IsCoordinate(coordinate) == true)
-         {
-           return coordinate;
-         }
-         else
-         {
-           throw "Invalid Coordinate";
-         }
-     }
-         
+   
       
-   std::string ToString() const //.4 total 1.9
-    {
+   	std::string ToString() const //.4 total 1.7
+	    {
 			std::stringstream out;
 
 			out << "[";
@@ -102,13 +91,13 @@ class SpreadSheet{
 			return out.str();
 		}
       
-      friend std::ostream& operator<<(std::ostream& out,const SpreadSheet& obj) //.1 total 2.0
+      friend std::ostream& operator<<(std::ostream& out,const SpreadSheet& obj) //.1 total 1.8
 		{
 			out << obj.ToString();
 			return out;
 		}
 	
-	const double GetCell(string coordinate) // .2 total 2.2
+	const double GetCell(string coordinate) // .2 total 2.0
 	{
 		if(IsCoordinate(coordinate) == true)
 		{
@@ -119,7 +108,7 @@ class SpreadSheet{
 			throw "Invalid Coordinate";		
 		}
 		
-	void SetCell(string coordinate, double value) //.2 total 2.4
+	void SetCell(string coordinate, double value) //.2 total 2.2
 	{
 		if(IsCoordinate(coordinate) == true)
 		{
@@ -131,7 +120,7 @@ class SpreadSheet{
 		}	
 	}
 		
-	operator[](string coordinate) //.2 total 2.6
+	operator[](string coordinate) //.2 total 2.4
 	{
 		if(IsCoordinate(coordinate) == true)
 		{
@@ -143,7 +132,7 @@ class SpreadSheet{
 		}	
 	}
 		
-	const double& operator[](string coordinate) //.2 total 2.8
+	const double& operator[](string coordinate) //.2 total 2.6
 	{
 		if(IsCoordinate(coordinate) == true)
 		{
