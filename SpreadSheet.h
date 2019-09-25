@@ -84,7 +84,7 @@ class SpreadSheet{
      }
          
       
-   std::string ToString() const
+   std::string ToString() const //.4 total 1.9
     {
 			std::stringstream out;
 
@@ -102,7 +102,7 @@ class SpreadSheet{
 			return out.str();
 		}
       
-      friend std::ostream& operator<<(std::ostream& out,const SpreadSheet& obj)
+      friend std::ostream& operator<<(std::ostream& out,const SpreadSheet& obj) //.1 total 2.0
 		{
 			out << obj.ToString();
 			return out;
