@@ -131,6 +131,30 @@ class SpreadSheet{
 		}	
 	}
 		
+	operator[](string coordinate) //.2 total 2.6
+	{
+		if(IsCoordinate(coordinate) == true)
+		{
+			return grid[coordinate];
+		}
+		else
+		{
+			throw "Invalid Coordinate";		
+		}	
+	}
+		
+	const double& operator[](string coordinate) //.2 total 2.8
+	{
+		if(IsCoordinate(coordinate) == true)
+		{
+			return grid[coordinate];
+		}
+		else
+		{
+			throw "Invalid Coordinate";		
+		}	
+	}
+		
 };
 
 int main() {
