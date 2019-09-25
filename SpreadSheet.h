@@ -20,7 +20,7 @@ class SpreadSheet{
         {
           for(int j = 0; j < rows; j++)
           {
-           *(grid + i*rows+j) = 0;
+           *(grid + i*rows+j) = 0.0;
           }
         } 
 
