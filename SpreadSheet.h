@@ -119,6 +119,18 @@ class SpreadSheet{
 			throw "Invalid Coordinate";		
 		}
 		
+	void SetCell(string coordinate, double value) //.2 total 2.4
+	{
+		if(IsCoordinate(coordinate) == true)
+		{
+			grid[coordinate] = value;
+		}
+		else
+		{
+			throw "Invalid Coordinate";		
+		}	
+	}
+		
 };
 
 int main() {
