@@ -118,9 +118,115 @@ class LinkedList
                     size+=1;
                 }
             }
-        }           
+        } 
+
+        void RemoveFromBack()
+        {
+            if(head != NULL)
+            {
+                if(tmp->GetLink() == NULL)
+                {
+                    delete[] head;
+                    head = NULL;
+                }
+                else
+                {
+                    Node<T>* tmp = head;
+                    while(tmp->GetLink()->GetLink() != NULL)
+                    {
+                        tmp = tmp->GetLink();
+                    }
+                    Node<T> olddata = tmp->GetLink();
+                    tmp->SetLink(NULL);
+                    delete[] olddata;
+                    olddata = NULL;
+                }
+                size -= 1;
+            }
+        }      
+
+        void RemoveFromFront()
+        {
+            if(head != NULL)
+            {
+                Node<T>* tmp = head;
+                head = head->GetLink();
+                tmp->SetLink(NULL);
+                delete[] tmp;
+                tmp = NULL;
+                size -= 1;
+            }
+        }     
+
+        void Remove(const T& value)
+        {
+            if(head != NULL)
+            {
+                if(head->GetData() == value)
+                {
+                    RemoveFromFront();
+                }
+                else
+                {
+                    Node<T>* tmp = head;
+
+                    while(tmp->GetLink != NULL && tmp->GetLink()->GetData() != value)
+                    {
+                        tmp=tmp->GetLink();
+                    }
+
+                    if(tmp->GetLink()->GetData() != NULL)
+                    {
+                        Node<T>* olddata = tmp->GetLink();
+                        tmp->SetLink(olddata->GetLink());
+                        delete olddata;
+                        olddata = NULL;
+                        size -=1 ;
+                    }
+                }
+                
+            }
+        }
+
+        bool IsEmpty() const
+        {
+            return head==NULL;
+        }
+
+        int Length() const
+        {
+            return size;
+        }
+
+
+        T& operator[](int index)
+        {
+            if(index >= 0 && index < size)
+            {
+                Node<T>* tmp=head;
+                for(int i = 0; i < index; i += 1)
+                {
+                    tmp = tmp->GetLink();
+                }
+                return tmp->GetData();
+            }
+            throw "Out of Bounds";
+        }
+
+       const T& operator[](int index) const
+        {
+            if(index >= 0 && index < size)
+            {
+                Node<T>* tmp=head;
+                for(int i = 0; i < index; i += 1)
+                {
+                    tmp = tmp->GetLink();
+                }
+                return tmp->GetData();
+            }
+            throw "Out of Bounds";
+        }
+        
+
     };
 }
-
-
-
