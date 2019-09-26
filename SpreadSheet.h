@@ -148,17 +148,102 @@ class SpreadSheet{
 		}	
 	}
 		
-	bool InsertColumnBefore(char newc) //.2 total 3.0
+	bool InsertColumnBefore(char newc) //.4 total 3.0
 	{
 		if(isalpha(newc) == true)
 		{
-			
+      grid = grid[newc];
+			grid = new double [columns];
+      for(int i = 0; i < columns; i++)
+      {
+          grid[i] = 0;
+      }
 			return true;
-		}
-		else
-		{
-			return false;
-		}
+      }
+      else
+      {
+        return false;
+      }
 	}
-		
+
+  bool InsertColumnAfter(char newc) // .4 totals 3.4
+  {
+    if(isalpha(newc) == true)
+		{
+      grid = grid[newc + 1];
+			grid = new double [columns];
+      for(int i = 0; i < columns; i++)
+      {
+          grid[i] = 0;
+      }
+			return true;
+      }
+      else
+      {
+        return false;
+      }
+  }
+
+  bool InsertRowBefore(int newr) //.4 total 3.8
+	{
+		if(isdigit(newr) == true)
+		{
+      grid = grid[newr];
+			grid = new double [rows];
+      for(int i = 0; i < rows; i++)
+      {
+          grid[i] = 0;
+      }
+			return true;
+      }
+      else
+      {
+        return false;
+      }
+	}
+
+
+  bool InsertRowAfter(int newr) //.4 total 4.2
+	{
+		if(isdigit(newr) == true)
+		{
+      grid = grid[newr + 1];
+			grid = new double [rows];
+      for(int i = 0; i < rows; i++)
+      {
+          grid[i] = 0;
+      }
+			return true;
+      }
+      else
+      {
+        return false;
+      }
+	}
+
+  	bool RemoveColumnBefore(char rmc) //.4 total 4.6
+	{
+		if(isalpha(rmc) == true)
+		{
+			delete grid[rmc-1];
+			return true;
+      }
+      else
+      {
+        return false;
+      }
+	}
+
+    bool RemoveColumnAfter(char rmc) //.4 total 5.0
+	{
+		if(isalpha(rmc) == true)
+		{
+			delete grid[rmc+1];
+			return true;
+      }
+      else
+      {
+        return false;
+      }
+	}	
 };
