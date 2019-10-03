@@ -94,7 +94,7 @@ namespace ds
                 {
                     Node<T>* tmp = head;
 
-                    while(tmp->GetLink != NULL && tmp->GetLink()->GetData() != value)
+                    while(tmp->GetLink() != NULL && tmp->GetLink()->GetData() != value)
                     {
                         tmp=tmp->GetLink();
                     }
@@ -114,6 +114,31 @@ namespace ds
             }
     
         }
+
+        std::string ToString() const
+            {
+                std::stringstream out;
+                out << "{";
+
+                for(Node<T>* tmp = head;tmp != NULL;tmp = tmp->GetLink())
+                {
+                    out << tmp->GetData();
+                    
+                    if(tmp->GetLink() != NULL)
+                    {
+                        out << ",";
+                    }
+                }
+                out << "}";
+                return out.str();
+            }
+
+        friend std::ostream& operator<<(std::ostream& out,const LinkedSet<T>& obj)
+            {
+                out << obj.ToString();
+                return out;
+            }
+            
     };
 }
 
