@@ -130,6 +130,35 @@ namespace ds
                 }
             }
 
+            friend Set<T> Union(Set<T> & A,Set<T>& B);
+
+            friend Set<T> Intersection(Set<T>& A, Set<T> B)
+                {
+                    Set<T> R;
+                    if(A.Cardinality() < B.Cardinality())
+                    {
+                        R =  A;
+                    }
+                    else
+                    {
+                        R = B;
+                    }
+
+                        for(int i = 0; i<R.Cardinality(); i++)
+                        {
+                            if(!B.Contain(R.Data[i]))
+                            {
+                                Remove(R.Data[i]);
+                                i--;
+                            }
+                        }
+                    return R;
+                }
+
+            friend Set<T> Difference(Set<T> A, Set<T> B);
+
+            friend bool Subset(Set<T> A, Set<T> B);
+
     };
 }
 
