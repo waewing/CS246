@@ -7,7 +7,7 @@ using namespace std;
 namespace ds{
 
 template <class T>
-class Interger
+class Integer
 {
   
   private:
