@@ -1,7 +1,7 @@
 #ifndef INTEGER_H
 #define INTEGER_H
 #include <iostream>
-#include <cstring>
+#include <string>
 using namespace std;
 
 namespace ds{
