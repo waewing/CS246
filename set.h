@@ -186,7 +186,7 @@ namespace ds
                   Set<T> C = A;
                    for(int i = 0 ; i < A.Cardinality(); i++)
                    {
-                    if(B.Contains(C.Data[i])
+                    if(B.Contain(C.Data[i])
                        {
                         Remove(C.Data[i]);
                        }
@@ -195,7 +195,7 @@ namespace ds
                   Set<T> D = B;
                    for(int i = 0 ; i < B.Cardinality(); i++)
                    {
-                    if(A.Contains(D.Data[i])
+                    if(A.Contain(D.Data[i])
                        {
                         Remove(D.Data[i]);
                        }
@@ -205,7 +205,37 @@ namespace ds
                    return E;
                  }
 
-            friend bool Subset(Set<T> A, Set<T> B);
+            friend bool Subset(Set<T> A, Set<T> B)
+             {
+              
+                if(A.Cardinality() > B.Cardinality())
+                {
+                  return false;
+                }
+
+                  for(int i = 0; i < A.Cardinality(); i++)
+                   {
+                     for(int j = i+1 < A.Cardinality(); j++)
+                     {
+                       if(A.Data[i] = A.Data[j])
+                       {
+                        return false;
+                       }
+                     }
+                   } 
+
+                for(i = 0; i < A.Cardinality(); i++)
+                {
+                 if(!B.Contain(A.Data[i]))
+                 {
+                   return false;
+                 }
+                }
+              
+              return true;
+              
+             }
+                   
 
     };
 }
