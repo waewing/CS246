@@ -181,7 +181,29 @@ namespace ds
                     return R;
                 }
 
-            friend Set<T> Difference(Set<T> A, Set<T> B);
+            friend Set<T> Difference(Set<T> A, Set<T> B)
+               {
+                  Set<T> C = A;
+                   for(int i = 0 ; i < A.Cardinality(); i++)
+                   {
+                    if(B.Contains(C.Data[i])
+                       {
+                        Remove(C.Data[i]);
+                       }
+                     }
+                       
+                  Set<T> D = B;
+                   for(int i = 0 ; i < B.Cardinality(); i++)
+                   {
+                    if(A.Contains(D.Data[i])
+                       {
+                        Remove(D.Data[i]);
+                       }
+                     }
+                       
+                   Set<T> E = E.Union(A,B);
+                   return E;
+                 }
 
             friend bool Subset(Set<T> A, Set<T> B);
 
