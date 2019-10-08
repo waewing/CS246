@@ -130,7 +130,26 @@ namespace ds
                 }
             }
 
-            friend Set<T> Union(Set<T> & A,Set<T>& B);
+            friend Set<T> Union(Set<T> & A,Set<T>& B)
+            {             
+             Set<T> R = A;
+             for(int i = 0 ; i < A.Cardinality(); i++)
+             {
+              if(B.Contains(R.Data[i])
+                 {
+                  Remove(R.Data[i]);
+                 }
+               }
+                 
+              i = i-1;
+                 
+              for(int j=0 ;j < B.Cardinality; j++)
+                 {
+                  R.Data[i] = B.Data[j];
+                  i++;
+                 }
+               Return R;
+              }
 
             friend Set<T> Intersection(Set<T>& A, Set<T> B)
                 {
@@ -138,12 +157,6 @@ namespace ds
                     if(A.Cardinality() < B.Cardinality())
                     {
                         R =  A;
-                    }
-                    else
-                    {
-                        R = B;
-                    }
-
                         for(int i = 0; i<R.Cardinality(); i++)
                         {
                             if(!B.Contain(R.Data[i]))
@@ -152,6 +165,19 @@ namespace ds
                                 i--;
                             }
                         }
+                    }
+                    else
+                    {
+                        R = B;
+                        for(int i = 0; i<R.Cardinality(); i++)
+                        {
+                            if(!A.Contain(R.Data[i]))
+                            {
+                                Remove(R.Data[i]);
+                                i--;
+                            }
+                        }
+                    }
                     return R;
                 }
 
