@@ -162,7 +162,6 @@ namespace ds
                             if(!B.Contain(R.Data[i]))
                             {
                                 Remove(R.Data[i]);
-                                i--;
                             }
                         }
                     }
@@ -174,7 +173,6 @@ namespace ds
                             if(!A.Contain(R.Data[i]))
                             {
                                 Remove(R.Data[i]);
-                                i--;
                             }
                         }
                     }
