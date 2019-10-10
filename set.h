@@ -148,7 +148,7 @@ namespace ds
                   R.Data[i] = B.Data[j];
                   i++;
                  }
-               Return R;
+               return R;
               }
 
             friend Set<T> Intersection(Set<T>& A, Set<T> B)
