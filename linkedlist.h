@@ -9,6 +9,7 @@
 namespace ds
 {
 
+
 template <class T> 
 class LinkedList
 {
@@ -18,6 +19,35 @@ class LinkedList
         int size;
     
     public:
+    template <class T> 
+        class Iterator
+        {
+            public:
+                virtual bool HasNext() const = 0;
+                virtual T& Next() = 0;
+        };
+
+        template <class T> 
+        class SIterator : public Iterator<T>
+        {
+            private:
+                Node<T>* root;
+            public:
+                SIterator() : SIterator(NULL) {}
+                SIterator(Node<T>*& root) : root(root) {}
+                bool HasNext() const{ return(root != NULL) ; }
+                T& Next()
+                {
+                    T value = root->GetData();
+                    root = root->GetLink();
+                    return value;
+                }
+        };
+
+        Iterator<T>* GetIterator()
+        {
+            return new SIterator(root);
+        }
 
         LinkedList(): head(NULL), size(0){};
         LinkedList(const LinkedList<T>& obj)
@@ -230,6 +260,8 @@ class LinkedList
 
     };
 }
+
+
 
 #endif
 
