@@ -14,42 +14,51 @@ private:
     T data;
     // bool leaf;
 public:
-    BNode() : BNode(NULL,NULL) {}
-    
-    BNode(BNode<T>* left, BNode<T>* right)
-    {
-        this->left = left;
-        this->right = right;
-    }
+    BNode() : BNode(T(),NULL,NULL) {}
 
-    BNode<T>* GetLeft() {return left;}
-    
-    const BNode<T>* GetLeft() const {return left;}
-    
-    BNode<T>* GetRight() {return right;}
-    
-    const BNode<T>* GetRight() const {return right;}
+		BNode(const T& data) : BNode(data,NULL,NULL) {}
 
-    void SetLeft(const BNode<T>* left)
-    {
-        this->left = left;
-    }
+		BNode(const T& data,BNode<T>* left,BNode<T>* right) : data(data), left(left), right(right) {}
 
-    void SetRight(const BNode<T>* right)
-    {
-        this->right = right;
-    }
- 
-    T& GetData()
-    {
-        return data;
-    }
+		~BNode() {}
+	
+		T& GetData() {return data;}
 
-    void SetData(const T& data)
-    {
-        this -> data = data;
-    }
+		const T& GetData() const {return data;}
 
+		BNode<T>*& GetLeft() {return left;}
+
+		const BNode<T>* GetLeft() const {return left;}
+
+		BNode<T>*& GetRight() {return right;}
+
+		const BNode<T>* GetRight() const {return right;}
+
+		void SetData(const T& data) {this->data = data;}
+
+		void SetLeft(BNode<T>* left) {this->left = left;}
+
+		void SetRight(BNode<T>* right) {this->right = right;}
+
+		bool IsLeaf() const {return ((left == NULL) && (right == NULL));}
+
+		std::string ToString() const
+		{
+			std::stringstream out;
+			out << data;
+			return out.str();
+		}
+
+		friend std::ostream& operator<<(std::ostream& out,const BNode<T>& obj)
+		{
+			out << obj.ToString();
+			return out;
+		}
+
+
+};
+
+    template<class T>
     BNode<T>* Copy(BNode<T>* root)
     {
         if (root == NULL)
@@ -62,6 +71,7 @@ public:
         return tmp;
     }
 
+    template<class T>
     void Clear(BNode<T>*& root)
     {
         if(root != NULL)
@@ -73,6 +83,7 @@ public:
         }
     }
 
+    template<class T>
     void infix(BNode<T>* root)
     {
         if(root != NULL)
@@ -83,6 +94,7 @@ public:
         }
     }
 
+    template<class T>
     void prefix(BNode<T>* root)
     {
         if(root != NULL)
@@ -93,6 +105,7 @@ public:
         }
     }
 
+    template<class T>
     void postfix(BNode<T>* root)
     {
         if(root != NULL)
@@ -103,8 +116,7 @@ public:
         }
     }
 
-    bool IsLeaf() const {return ((left == NULL) && (right == NULL));}
-
+    template<class T>
     void Insert(BNode<T>*& root, T value)
     {
         if(root == NULL)
@@ -121,23 +133,7 @@ public:
         }
     }
 
-
-    std::string ToString() const
-		{
-			std::stringstream out;
-			out << data;
-			return out.str();
-		}
-
-    friend std::ostream& operator<<(std::ostream& out,const BNode<T>& obj)
-		{
-			out << obj.ToString();
-			return out;
-		}
-
-
 }
-};
 
 
 #endif

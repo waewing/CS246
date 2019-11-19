@@ -47,6 +47,11 @@ class BBNode
         this->right = right;
     }
 
+    void SetParent(const BBNode<T>* parent)
+    {
+        this->parent = parent;
+    }
+
     T& GetData()
     {
         return data;
@@ -55,6 +60,60 @@ class BBNode
     void SetData(const T& data)
     {
         this -> data = data;
+    }
+
+    BBNode<T>* Copy(BBNode<T>* root)
+    {
+        if (root == NULL)
+        {
+            return NULL;
+        }
+        BBNode<T>* tmp = new BBNode<T>(root->GetData());
+        tmp->SetParent(parent);
+        tmp->SetLeft(Copy(tmp,root->GetLeft()));
+        tmp->SetRight(Copy(tmp,root->GetRight()));
+        return tmp;
+    }
+
+    void Clear(BBNode<T>*& root)
+    {
+        if(root != NULL)
+        {
+            Clear(root->GetLeft());
+            Clear(root->GetRight());
+            root->SetParent(NULL);
+            delete root;
+            root = NULL;  
+        }
+    }
+    void infix(BBNode<T>* root)
+    {
+        if(root != NULL)
+        {
+            infix(root->GetLeft());
+            std::cout << root->GetData();
+            infix(root->GetRight());
+        }
+    }
+
+    void prefix(BBNode<T>* root)
+    {
+        if(root != NULL)
+        {
+            std::cout << root->GetData();
+            infix(root->GetLeft());
+            infix(root->GetRight());
+        }
+    }
+
+    void postfix(BBNode<T>* root)
+    {
+        if(root != NULL)
+        {
+            infix(root->GetLeft());
+            infix(root->GetRight());
+            std::cout << root->GetData();
+        }
     }
 
     std::string ToString() const
