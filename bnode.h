@@ -2,6 +2,7 @@
 #define BNODE_H
 #include <iostream>
 #include <string>
+#include <sstream>
 namespace ds
 {
 
@@ -83,36 +84,47 @@ public:
         }
     }
 
-    template<class T>
+    template <class T>
     void infix(BNode<T>* root)
     {
         if(root != NULL)
         {
             infix(root->GetLeft());
-            std::cout << root->GetData();
+            std::cout << root->GetData() << " ";
             infix(root->GetRight());
         }
     }
 
-    template<class T>
+    template <class T,class Process>
+    void infixF(BNode<T>* root,Process F)
+    {
+        if(root != NULL)
+        {
+            infixF(root->GetLeft());
+            F(root->GetData());
+            infixF(root->GetRight());
+        }
+    }
+
+    template <class T>
     void prefix(BNode<T>* root)
     {
         if(root != NULL)
         {
-            std::cout << root->GetData();
-            infix(root->GetLeft());
-            infix(root->GetRight());
+            std::cout << root->GetData() << " ";
+            prefix(root->GetLeft());
+            prefix(root->GetRight());
         }
     }
 
-    template<class T>
+    template <class T>
     void postfix(BNode<T>* root)
     {
         if(root != NULL)
         {
-            infix(root->GetLeft());
-            infix(root->GetRight());
-            std::cout << root->GetData();
+            postfix(root->GetLeft());
+            postfix(root->GetRight());
+            std::cout << root->GetData() << " ";
         }
     }
 
@@ -133,6 +145,52 @@ public:
         }
     }
 
+    template <class T>
+    BNode<T>* MinimumValue(BNode<T>* root)
+    {
+        if(root == NULL)
+        {
+            return NULL;
+        }
+        if(root->GetLeft() == NULL)
+        {
+            return root;
+        }
+        else
+        {
+            return MinimumValue(root->GetLeft());
+        }
+    }
+
+    template <class T>
+    BNode<T>* MaximumValue(BNode<T>* root)
+    {
+        if(root == NULL)
+        {
+            return NULL;
+        }
+        if(root->GetRight() == NULL)
+        {
+            return root;
+        }
+        else
+        {
+            return MaximumValue(root->GetRight());
+        }
+    }
+
+    template <class T>
+    int Range(BNode<T>* root)
+    {
+        if(root == NULL)
+        {
+            return -1;
+        }
+        else
+        {
+            return (MaximumValue(root)->GetData() - MinimumValue(root)->GetData());
+        }
+    }
 }
 
 
