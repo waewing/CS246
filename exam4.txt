@@ -1,0 +1,225 @@
+#ifndef BBNODE_H
+#define BBNODE_H
+
+#include <iostream>
+#include <string>
+#include <sstream>
+#include "queue.h"
+#include "linkedlist.h"
+
+namespace ds
+{
+	template <class T>
+	class BBNode
+	{
+	private:
+		private:
+		T data;
+		BBNode<T>* root;
+		BBNode<T>* left;
+		BBNode<T>* right;
+
+		BBNode(const BBNode<T>& obj);
+		BBNode& operator=(const BBNode<T>& rhs);
+	public:
+		BBNode() : BBNode(T(),NULL,NULL,NULL) {}
+
+		BBNode(const T& data) : BBNode(data,NULL,NULL,NULL) {}
+
+		BBNode(const T& data,BBNode<T>* root) : BBNode(data,root,NULL,NULL) {}
+
+		BBNode(const T& data,BBNode<T>* root,BBNode<T>* left,BBNode<T>* right) : data(data), root(root), left(left), right(right) {}
+
+		~BBNode() {}
+	
+		T& GetData() {return data;}
+
+		const T& GetData() const {return data;}
+
+		BBNode<T>*& GetRoot() {return root;}
+
+		const BBNode<T>*& GetRoot() const {return root;}
+
+		BBNode<T>*& GetLeft() {return left;}
+
+		const BBNode<T>* GetLeft() const {return left;}
+
+		BBNode<T>*& GetRight() {return right;}
+
+		const BBNode<T>* GetRight() const {return right;}
+
+		void SetData(const T& data) {this->data = data;}
+
+		void SetRoot(BBNode<T>* root) {this->root = root;}
+
+		void SetLeft(BBNode<T>* left) {this->left = left;}
+
+		void SetRight(BBNode<T>* right) {this->right = right;}
+		
+    bool const IsEmpty() const {
+        if(root == NULL)
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+    }
+
+    void Insert(BBNode<T>*& root,const T& value)
+        {
+          if(root == NULL)
+          {
+            root = new BBNode<T>(value,NULL);
+          }
+          else if(root->GetData() < value)
+          {
+            Insert(root->GetRight(),root,value);
+          }
+          else
+          {
+            Insert(root->GetLeft(),root,value);
+          }
+        }
+
+    bool Search(BBNode<T>*& root,const T& value)
+        {
+          if(root->GetData() == value)
+          {
+            return true;
+          }
+          else if(root->GetData() < value)
+          {
+            Search(root->GetRight(),root,value);
+          }
+          else
+          {
+            Search(root->GetLeft(),root,value);
+          }
+          return false;
+        }
+
+    const int Depth()  
+        {  
+          if (root == NULL) 
+          { 
+              return 0;  
+          }
+          else
+          {  
+              int LDepth = (left==NULL? 0: left->Depth()); 
+              int RDepth = (right==NULL? 0: right->Depth()); 
+              if (LDepth > RDepth) 
+              { 
+                  return(LDepth + 1);  
+              }
+              else
+              {
+                 return(RDepth + 1);  
+              }  
+          }
+        }  
+
+    const int Count()
+    {
+      if (root == NULL) 
+          { 
+              return 0;  
+          }
+          else
+          {  
+            Queue<Node> q = new LinkedList<Node>();
+            q.Enqueue(root);
+
+            int count = 1;
+            while(!q.IsEmpty())
+            {
+              Node<T>* tmp = q.Peek();
+              q.Dequeue();
+
+              if(tmp!=NULL)
+              {
+                if(tmp->GetLeft()!=NULL)
+                {
+                  count++;
+                  q.Enqueue(tmp->GetLeft());
+                }
+                if(tmp->GetRight()!=NULL)
+                {
+                  count++;
+                  q.Enqueue(tmp->GetRight());
+                }
+              }
+            }
+            return count;
+          }
+    }
+
+    BBNode<T>* minValueNode(BBNode<T>* root)
+    {
+      BBNode<T>* tmp = root;
+
+      while(root && root->GetLeft() != NULL)
+      {
+        root = root->GetLeft();
+      }
+
+      return root;
+    }
+
+    void Remove(BBNode<T>*& root, int value)
+    {
+      if (root == NULL)
+      {
+        return root;
+      }
+
+      if(value < root ->GetDta())
+      {
+        root->GetLeft() = Remove(root->GetLeft(),value);
+      }
+      else if(value > root->GetData())
+      {
+        root->GetRight() = Remove(root-GetRight(),value);
+      }
+      else
+      {
+        if(root->GetLeft() == NULL)
+        {
+          BBNode<T>* tmp = root->GetRight();
+          delete[] root;
+          return tmp;
+        }
+        else if(root->GetRight() == NULL)
+        {
+          BBNode<T>* tmp = root->GetLeft();
+          delete[] root;
+          return tmp;
+        }
+
+        BBNode<T>* tmp = minValueNode(root->GetRight);
+
+        root->GetData() = tmp->GetData();
+
+        root->GetRight() = Remove(root->GetRight(),tmp->GetData());
+      }
+      return root;
+    }
+
+		std::string ToString() const
+		{
+			std::stringstream out;
+			out << data;
+			return out.str();
+		}
+
+		friend std::ostream& operator<<(std::ostream& out,const BBNode<T>& obj)
+		{
+			out << obj.ToString();
+			return out;
+		}
+	};
+}
+		
+#endif
