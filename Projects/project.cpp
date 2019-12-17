@@ -9,16 +9,25 @@
 
 using namespace std;
 
+
+
+/*
 template <class T>
 void ParseString()
 {
  
 }
 
+
+
 void ChangeDirectory()
   {
 
   }
+
+*/
+
+
 
 template <class T>
 void List(ds::Node<T>* root)
@@ -27,26 +36,35 @@ void List(ds::Node<T>* root)
     {
       return;
     }
-    else if(root->GetChild()->GetSibling() == NULL) // if root has a singular child
+    else if(root->GetChild() == NULL) // if root has no child
     {
       cout << root->GetData() <<"\n";
-      cout << root->GetChild()->GetData() << "\n";
     }
-    else // if root has a child with siblings
+    else if(root->GetChild()->GetSibling() == NULL) // if root has a child
     {
       ds::Node<T>* tmp = root;
-      cout << root->GetData() << "\n";
-      cout << root->GetChild()->GetData() << "\n";
+      cout << tmp->GetData() <<"\n";
       tmp = tmp->GetChild();
+      cout << tmp->GetData() <<"\n";
+    }
+    else // if root has multiple children (siblings)
+    {
+      ds::Node<T>* tmp = root;
+      cout << tmp->GetData() <<"\n";
+      tmp = tmp->GetChild();
+      cout << tmp->GetData() <<"\n";
+
       while(tmp->GetSibling() != NULL)
       {
-        cout << tmp->GetData() << "\n";
-        tmp = tmp;
+        tmp = tmp->GetSibling();
+        cout << tmp->GetData() <<"\n";
       }
     }
   }
+  
 
 
+/*
 template <class T>
 void Remove(ds::Node<T>* root,string name)
   {
@@ -72,6 +90,11 @@ void Remove(ds::Node<T>* root,string name)
     }
   }
 
+*/
+
+
+
+/*
 template <class T>
 void Touch(ds::Node<T>* root, string name)
   {
@@ -79,27 +102,34 @@ void Touch(ds::Node<T>* root, string name)
     root->SetData(of.open(name));
     of.close();
   }
+  */
+
+
 
 template <class T>
 void MakeDirectory(ds::Node<T>* root)
   {
-    if(root->GetChild() == NULL) // in case directory has no child
+    if(root == NULL) // in case root is null 
+    {
+      root = new ds::Node<T>();
+    }
+    else if(root->GetChild() == NULL) // where root exists but child doesnt
     {
       root->SetChild(new ds::Node<T>());
     }
-    else
+    else //where root has a child but the child has no siblings
     {
-    ds::Node<T>* tmp = root; //in case directory has one or more child
-    tmp = tmp->GetChild();
-
-    while(tmp->GetSibling() != NULL)
-    {
-      tmp = tmp->GetSibling();
-    }
-
-    tmp->SetSibling(new ds::Node<T>()); // make new node at end of sibling list
+      ds::Node<T>* tmp = root;
+      tmp = tmp->GetChild();
+      while(tmp->GetSibling() != NULL)
+      {
+        tmp = tmp->GetSibling();
+      }
+      tmp->SetSibling(new ds::Node<T>());
     }
   }
+
+
 
 template <class T>
 void Shell()
@@ -145,6 +175,8 @@ void Shell()
  }
 
 }
+
+
 
 int main() {
 
