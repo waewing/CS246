@@ -34,7 +34,7 @@ void List(ds::Node<T>* root)
     }
     else // if root has a child with siblings
     {
-      ds::LinkedList<T>* tmp = root;
+      ds::Node<T>* tmp = root;
       cout << root->GetData() << "\n";
       cout << root->GetChild()->GetData() << "\n";
       tmp = tmp->GetChild();
@@ -81,13 +81,14 @@ void Touch(ds::Node<T>* root, string name)
   }
 
 template <class T>
-void MakeDirectory(ds::Node<T>* root, string name)
+void MakeDirectory(ds::Node<T>* root)
   {
     if(root->GetChild() == NULL) // in case directory has no child
     {
-      root->SetChild(new ds::Node<T>(name));
+      root->SetChild(new ds::Node<T>());
     }
-
+    else
+    {
     ds::Node<T>* tmp = root; //in case directory has one or more child
     tmp = tmp->GetChild();
 
@@ -96,8 +97,8 @@ void MakeDirectory(ds::Node<T>* root, string name)
       tmp = tmp->GetSibling();
     }
 
-    tmp->SetSibling(new ds::Node<T>(name)); // make new node at end of sibling list
-
+    tmp->SetSibling(new ds::Node<T>()); // make new node at end of sibling list
+    }
   }
 
 template <class T>
@@ -111,8 +112,6 @@ void Shell()
 
  while (command != "exit")
  {
-   cout << "C:\\root> ";
-   cin>>command;
    if(command == "date")
    {
      system("date");
@@ -127,20 +126,22 @@ void Shell()
    }
    else if(command == "rm")
    {
-
+     
    }
    else if(command == "mkdir")
    {
-     MakeDirectory(root,command);
+     MakeDirectory(root);
    }
    else if(command == "touch")
    {
-    
+
    }
    else if(command != "\0")
    {
      cout << "Error: unkown command\n";
    }
+   cout << "C:\\root> ";
+   cin>>command;
  }
 
 }
