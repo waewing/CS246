@@ -5,17 +5,71 @@
 #include "graph.h"
 #include "linkedlist.h"
 #include "stack.h"
-#include "queue.h"
+#include "staticqueue.h"
 
 using namespace std;
 
 
-
 /*
 template <class T>
-void ParseString()
+void ParseString(string command, string arg1, string arg2)
 {
- 
+  ds::StaticQueue<char> que;
+  string str;
+  cin >> str;
+  for(int i = 0; str[i] != '\0';i++)
+  {
+    que.Enqueue(str[i]);
+  }
+
+  int count = 0;
+  while(count != 3)
+  {
+    for(int i=0; count < 1;i++)
+    {
+      command[i] = que.Peek();
+      que.Dequeue();
+      if(que.Peek() == ' ')
+      {
+      count += 1;
+      }
+    }
+
+    while(que.Peek() == ' ')
+    {
+      que.Dequeue();
+    }
+
+    for(int i=0; count < 2;i++)
+    {
+      arg1[i] = que.Peek();
+      que.Dequeue();
+      if(que.Peek() == ' ')
+      {
+      count += 1;
+      }
+    }
+
+    while(que.Peek() == ' ')
+    {
+      que.Dequeue();
+    }
+
+    for(int i=0; count < 3;i++)
+    {
+      arg2[i] = que.Peek();
+      que.Dequeue();
+      if(que.Peek() == ' ')
+      {
+      count += 1;
+      } 
+    }
+
+    while(que.Peek() == ' ')
+    {
+      que.Dequeue();
+    }
+  }
 }
 
 
@@ -63,7 +117,6 @@ void List(ds::Node<T>* root)
   }
   
 
-
 /*
 template <class T>
 void Remove(ds::Node<T>* root,string name)
@@ -107,15 +160,15 @@ void Touch(ds::Node<T>* root, string name)
 
 
 template <class T>
-void MakeDirectory(ds::Node<T>* root)
+void MakeDirectory(ds::Node<T>*& root,string name)
   {
     if(root == NULL) // in case root is null 
     {
-      root = new ds::Node<T>();
+      root = new ds::Node<T>(name);
     }
     else if(root->GetChild() == NULL) // where root exists but child doesnt
     {
-      root->SetChild(new ds::Node<T>());
+      root->SetChild(new ds::Node<T>(name));
     }
     else //where root has a child but the child has no siblings
     {
@@ -125,7 +178,7 @@ void MakeDirectory(ds::Node<T>* root)
       {
         tmp = tmp->GetSibling();
       }
-      tmp->SetSibling(new ds::Node<T>());
+      tmp->SetSibling(new ds::Node<T>(name));
     }
   }
 
@@ -136,19 +189,17 @@ void Shell()
 {
 
  string command;
- ds::Node<T>* root;
+ string arg1;
+ string arg2;
+ ds::Node<T>* root = NULL;
 
  cout << "\t CS246 Project Shell\n\n";
 
  while (command != "exit")
  {
-   if(command == "date")
+   if(command == "cd")
    {
-     system("date");
-   }
-   else if(command == "cd")
-   {
-
+     
    }
    else if(command == "ls")
    {
@@ -160,7 +211,7 @@ void Shell()
    }
    else if(command == "mkdir")
    {
-     MakeDirectory(root);
+     MakeDirectory(root,arg1);
    }
    else if(command == "touch")
    {
@@ -170,10 +221,9 @@ void Shell()
    {
      cout << "Error: unkown command\n";
    }
-   cout << "C:\\root> ";
-   cin>>command;
+   cout << "C:\\root" << arg1 << "> ";
+   cin >> command;
  }
-
 }
 
 
@@ -181,5 +231,4 @@ void Shell()
 int main() {
 
   Shell<string>();
-
 }
