@@ -30,8 +30,50 @@ namespace ds
 		const Node<T>* GetLink() const {return link;}
 
 		T& GetData() {return data;}
+#ifndef NODE_H
+#define NODE_H
+
+#include <iostream>
+#include <string>
+#include <sstream>
+
+namespace ds
+{
+	template <class T>
+	class Node
+	{
+	private:
+		T data;
+    std::string name;
+    Node<T>* parent;
+    Node<T>* psibling;
+    Node<T>* child;
+    Node<T>* sibling;
+    
+	public:
+		Node() : Node(T(),NULL,NULL,NULL,NULL) {}
+
+		Node(const T& data) : Node(data,NULL,NULL,NULL,NULL) {}
+
+		Node(const T& data,Node<T>* child,Node<T>* parent,Node<T>* sibling,Node<T>* psibling) : data(data),parent(parent),psibling(psibling),child(child),sibling(sibling){}
+
+		~Node() {}
+
+    Node<T>* GetParent() {return parent;}
+
+		const Node<T>* GetParent() const {return parent;}
+
+    Node<T>* GetPsibling() {return psibling;}
+
+		const Node<T>* GetPsibling() const {return psibling;}
+
+		T& GetData() {return data;}
 
 		const T& GetData() const {return data;}
+
+    std::string& GetName() {return name;}
+
+		const std::string& GetName() const {return name;}
 
     Node<T>*& GetChild() {return child;}
 
@@ -41,11 +83,15 @@ namespace ds
 
 		const Node<T>* GetSibling() const {return sibling;}
 
-    void SetLink(Node<T>* link) {this->link = link;}
+    void SetPsibling(Node<T>* psibling) {this->psibling = psibling;}
+
+    void SetParent(Node<T>* parent) {this->parent = parent;}
 
 		void SetData(const T& data) {this->data = data;}
 
     void SetChild(Node<T>* child) {this->child = child;}
+
+    void SetName(const std::string& name) {this->name = name;}
 
     void SetSibling(Node<T>* sibling) {this->sibling = sibling;}
 
