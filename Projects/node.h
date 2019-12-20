@@ -49,19 +49,6 @@ namespace ds
 
     void SetSibling(Node<T>* sibling) {this->sibling = sibling;}
 
-    void Clear(Node<T>*& link)
-    {
-      Node<T> *tmp;
-
-      while(link != NULL)
-      {
-        tmp = link;
-        link = link->GetLink();
-        delete tmp;
-        tmp = NULL;
-      }
-    }
-
 		std::string ToString() const
 		{
 			std::stringstream out;
@@ -75,5 +62,20 @@ namespace ds
 			return out;
 		}
 	};
+
+  template <class T>
+  void Clear(Node<T>*& link)
+    {
+      Node<T> *tmp;
+
+      while(link != NULL)
+      {
+        tmp = link;
+        link = link->GetLink();
+        delete tmp;
+        tmp = NULL;
+      }
+    }
+
 }			
 #endif
