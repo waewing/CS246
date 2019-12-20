@@ -2,36 +2,48 @@
 #include <string>
 #include <cstring>
 #include <fstream>
-#include "graph.h"
+#include "vector.h"
 #include "linkedlist.h"
 #include "stack.h"
-#include "staticqueue.h"
-
+#include "queue.h"
 using namespace std;
 
 
-/*
-template <class T>
-void ParseString(string command, string arg1, string arg2)
+
+
+void ParseString(string& a, string& b)
 {
-  ds::StaticQueue<char> que;
+  ds::Queue<char> que;
   string str;
-  cin >> str;
+  string command;
+  string arg1;
+  getline(cin,str);
   for(int i = 0; str[i] != '\0';i++)
   {
     que.Enqueue(str[i]);
   }
 
   int count = 0;
-  while(count != 3)
+
+  if(que.IsEmpty() || que.Peek() == ' ')
   {
-    for(int i=0; count < 1;i++)
+    count+=2;
+  } 
+
+  while(count < 1)
+  {
+    while(count < 1)
     {
-      command[i] = que.Peek();
+      command = command + que.Peek();
       que.Dequeue();
       if(que.Peek() == ' ')
       {
       count += 1;
+      }
+      else if(que.IsEmpty())
+      {
+        a = command;
+        count += 2;
       }
     }
 
@@ -39,48 +51,58 @@ void ParseString(string command, string arg1, string arg2)
     {
       que.Dequeue();
     }
-
-    for(int i=0; count < 2;i++)
+    a = command;
+    if(que.IsEmpty())
     {
-      arg1[i] = que.Peek();
+      count+=1;
+    }
+  }
+
+  while(count < 2)
+  {
+    while(count < 2)
+    {
+      arg1 = arg1 + que.Peek();
       que.Dequeue();
-      if(que.Peek() == ' ')
+      if(que.IsEmpty())
       {
-      count += 1;
+        count +=1;
       }
     }
-
-    while(que.Peek() == ' ')
-    {
-      que.Dequeue();
-    }
-
-    for(int i=0; count < 3;i++)
-    {
-      arg2[i] = que.Peek();
-      que.Dequeue();
-      if(que.Peek() == ' ')
-      {
-      count += 1;
-      } 
-    }
-
-    while(que.Peek() == ' ')
-    {
-      que.Dequeue();
-    }
+   b = arg1;
   }
 }
 
 
+/*
+// definition of parse from prof
 
-void ChangeDirectory()
+Vector<string> Parsing(string str)
+{
+  Vector<string> values;
+  string word= " ";
+  int n = str.size();
+  for(int i= 0;i < n; i+=1)
   {
-
+    if(str[i] == ' ')
+    {
+      values.Add(word);
+      word = " ";
+    }
+    else
+    {
+      word = word + str[i];
+    }
   }
+  values.Add(word);
+}
+
+
+
+
+}
 
 */
-
 
 
 template <class T>
@@ -116,38 +138,28 @@ void List(ds::Node<T>* root)
     }
   }
   
-
+  
 /*
+
 template <class T>
 void Remove(ds::Node<T>* root,string name)
   {
     if(root->GetChild() == NULL && root->GetSibling() == NULL)
     {
-      return; 
+      throw "Cannot be removed";
     }
     else if(root->GetChild() != NULL)
     {
-      ds::LinkedList<T>* tmp = root;
-      tmp = tmp->GetChild();
-      while(tmp->GetSibling() != NULL)
-      {
-        tmp = root;
-        tmp= tmp->GetChild();
-        while(tmp->GetSibling() != NULL)
-        {
-          tmp = tmp->GetSibling();
-        }
-        tmp->RemoveFromBack();
-      }
-      tmp->RemoveFromBack();
+      throw "Cannot be removed";
     }
+    else if()
   }
 
-*/
 
 
 
-/*
+
+
 template <class T>
 void Touch(ds::Node<T>* root, string name)
   {
@@ -155,8 +167,8 @@ void Touch(ds::Node<T>* root, string name)
     root->SetData(of.open(name));
     of.close();
   }
-  */
-
+  
+*/
 
 
 template <class T>
@@ -190,7 +202,6 @@ void Shell()
 
  string command;
  string arg1;
- string arg2;
  ds::Node<T>* root = NULL;
 
  cout << "\t CS246 Project Shell\n\n";
@@ -207,7 +218,7 @@ void Shell()
    }
    else if(command == "rm")
    {
-     
+    // Remove(root,arg1);
    }
    else if(command == "mkdir")
    {
@@ -221,14 +232,15 @@ void Shell()
    {
      cout << "Error: unkown command\n";
    }
-   cout << "C:\\root" << arg1 << "> ";
-   cin >> command;
+   cout << "C:\\root> ";
+   ParseString(command,arg1);
  }
 }
-
 
 
 int main() {
 
   Shell<string>();
+  
+return 0;
 }
