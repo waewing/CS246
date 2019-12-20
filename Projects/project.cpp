@@ -2,9 +2,7 @@
 #include <string>
 #include <cstring>
 #include <fstream>
-#include "vector.h"
 #include "linkedlist.h"
-#include "stack.h"
 #include "queue.h"
 using namespace std;
 
@@ -13,97 +11,30 @@ using namespace std;
 
 void ParseString(string& a, string& b)
 {
-  ds::Queue<char> que;
-  string str;
-  string command;
-  string arg1;
-  getline(cin,str);
-  for(int i = 0; str[i] != '\0';i++)
+  char str[1024];
+  cin.getline(str,1024);
+  char * pch;
+  pch = strtok (str," ");
+  if (pch != NULL)
   {
-    que.Enqueue(str[i]);
+    a = pch;
+    pch = strtok (NULL, " ");
+  }
+  if(pch == NULL)
+  {
+    b = "";
+  }
+  if (pch != NULL)
+  {
+    b = pch;
+    pch = strtok (NULL, " ");
   }
 
-  int count = 0;
-
-  if(que.IsEmpty() || que.Peek() == ' ')
+  while (pch != NULL)
   {
-    count+=2;
-  } 
-
-  while(count < 1)
-  {
-    while(count < 1)
-    {
-      command = command + que.Peek();
-      que.Dequeue();
-      if(que.Peek() == ' ')
-      {
-      count += 1;
-      }
-      else if(que.IsEmpty())
-      {
-        a = command;
-        count += 2;
-      }
-    }
-
-    while(que.Peek() == ' ')
-    {
-      que.Dequeue();
-    }
-    a = command;
-    if(que.IsEmpty())
-    {
-      count+=1;
-    }
-  }
-
-  while(count < 2)
-  {
-    while(count < 2)
-    {
-      arg1 = arg1 + que.Peek();
-      que.Dequeue();
-      if(que.IsEmpty())
-      {
-        count +=1;
-      }
-    }
-   b = arg1;
+    pch = strtok (NULL, " ");
   }
 }
-
-
-/*
-// definition of parse from prof
-
-Vector<string> Parsing(string str)
-{
-  Vector<string> values;
-  string word= " ";
-  int n = str.size();
-  for(int i= 0;i < n; i+=1)
-  {
-    if(str[i] == ' ')
-    {
-      values.Add(word);
-      word = " ";
-    }
-    else
-    {
-      word = word + str[i];
-    }
-  }
-  values.Add(word);
-}
-
-
-
-
-}
-
-*/
-
 
 template <class T>
 void List(ds::Node<T>* root)
@@ -114,26 +45,26 @@ void List(ds::Node<T>* root)
     }
     else if(root->GetChild() == NULL) // if root has no child
     {
-      cout << root->GetData() <<"\n";
+      cout << root->GetName() <<"\n";
     }
     else if(root->GetChild()->GetSibling() == NULL) // if root has a child
     {
       ds::Node<T>* tmp = root;
-      cout << tmp->GetData() <<"\n";
+      cout << tmp->GetName() <<"\n";
       tmp = tmp->GetChild();
-      cout << tmp->GetData() <<"\n";
+      cout << tmp->GetName() <<"\n";
     }
     else // if root has multiple children (siblings)
     {
       ds::Node<T>* tmp = root;
-      cout << tmp->GetData() <<"\n";
+      cout << tmp->GetName() <<"\n";
       tmp = tmp->GetChild();
-      cout << tmp->GetData() <<"\n";
+      cout << tmp->GetName() <<"\n";
 
       while(tmp->GetSibling() != NULL)
       {
         tmp = tmp->GetSibling();
-        cout << tmp->GetData() <<"\n";
+        cout << tmp->GetName() <<"\n";
       }
     }
   }
@@ -174,13 +105,33 @@ void Touch(ds::Node<T>* root, string name)
 template <class T>
 void MakeDirectory(ds::Node<T>*& root,string name)
   {
+    if(name == "")
+    {
+      cout << "Directory can't have a NULL name.\n";
+      return;
+    }
+    /*
+    ds::Node<T>* checkname = root->GetChild();  // check for duplicate names
+    while(checkname->GetSibling() != NULL)
+    {
+      if(name == checkname->GetName())
+      {
+      cout << "Error: Can't have duplicate names in same directory.";
+      return;
+      }
+    }
+    */
+
     if(root == NULL) // in case root is null 
     {
-      root = new ds::Node<T>(name);
+      root = new ds::Node<T>();
+      root->SetName(name);
     }
     else if(root->GetChild() == NULL) // where root exists but child doesnt
     {
-      root->SetChild(new ds::Node<T>(name));
+      root->SetChild(new ds::Node<T>());
+      root->GetChild()->SetName(name);
+      root->GetChild()->SetParent(root);
     }
     else //where root has a child but the child has no siblings
     {
@@ -190,9 +141,21 @@ void MakeDirectory(ds::Node<T>*& root,string name)
       {
         tmp = tmp->GetSibling();
       }
-      tmp->SetSibling(new ds::Node<T>(name));
+      tmp->SetSibling(new ds::Node<T>());
+      tmp->GetSibling()->SetName(name);
+      tmp->GetSibling()->SetPsibling(root);
     }
   }
+
+  
+
+template <class T>
+void ChangeDirectory(ds::Node<T>* root, string name)
+{
+
+  
+ 
+}
 
 
 
@@ -202,17 +165,15 @@ void Shell()
 
  string command;
  string arg1;
+ string directory = "root";
  ds::Node<T>* root = NULL;
 
  cout << "\t CS246 Project Shell\n\n";
 
  while (command != "exit")
  {
-   if(command == "cd")
-   {
-     
-   }
-   else if(command == "ls")
+   
+   if(command == "ls")
    {
      List(root);
    }
@@ -228,19 +189,23 @@ void Shell()
    {
 
    }
+   else if(command == "cd")
+   {
+     ChangeDirectory(root,arg1);
+     directory = arg1;
+   }
    else if(command != "\0")
    {
      cout << "Error: unkown command\n";
    }
-   cout << "C:\\root> ";
+   cout << "C:\\" << directory <<">";
    ParseString(command,arg1);
  }
 }
 
 
-int main() {
-
+int main ()
+{
   Shell<string>();
-  
-return 0;
+  return 0;
 }
