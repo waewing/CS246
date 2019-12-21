@@ -1,3 +1,6 @@
+// Name: Wayne Ewing
+// Program: Make a  shell
+
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -9,32 +12,34 @@ using namespace std;
 
 
 
-void ParseString(string& a, string& b)
+void ParseString(string& a, string& b) // assign two strings a single string seperated by a space
 {
   char str[1024];
   cin.getline(str,1024);
   char * pch;
-  pch = strtok (str," ");
+  pch = strtok (str," "); //tokenizes str up to first space
   if (pch != NULL)
   {
-    a = pch;
-    pch = strtok (NULL, " ");
+    a = pch; //assigns the part of str before a space to a
+    pch = strtok (NULL, " "); //gets rid of the space
   }
   if(pch == NULL)
   {
-    b = "";
+    b = ""; //if the pointer pch holds nothing else assign b to be empty
   }
   if (pch != NULL)
   {
-    b = pch;
-    pch = strtok (NULL, " ");
+    b = pch; //if pch isnt empty assign b to the remaining characters
+    pch = strtok (NULL, " "); // remove any more spaces
   }
 
   while (pch != NULL)
   {
-    pch = strtok (NULL, " ");
+    pch = strtok (NULL, " "); //if there is anything else left set it to null
   }
 }
+
+
 
 template <class T>
 void List(ds::Node<T>* root)
@@ -102,6 +107,7 @@ void Touch(ds::Node<T>* root, string name)
 */
 
 
+
 template <class T>
 void MakeDirectory(ds::Node<T>*& root,string name)
   {
@@ -137,10 +143,12 @@ void MakeDirectory(ds::Node<T>*& root,string name)
     {
       ds::Node<T>* tmp = root;
       tmp = tmp->GetChild();
+
       while(tmp->GetSibling() != NULL)
       {
         tmp = tmp->GetSibling();
       }
+
       tmp->SetSibling(new ds::Node<T>());
       tmp->GetSibling()->SetName(name);
       tmp->GetSibling()->SetPsibling(root);
@@ -154,7 +162,6 @@ void ChangeDirectory(ds::Node<T>* root, string name)
 {
 
   
- 
 }
 
 
@@ -168,7 +175,8 @@ void Shell()
  string directory = "root";
  ds::Node<T>* root = NULL;
 
- cout << "\t CS246 Project Shell\n\n";
+
+ cout << "\n\t\t CS246 Project Shell\n\n";
 
  while (command != "exit")
  {
